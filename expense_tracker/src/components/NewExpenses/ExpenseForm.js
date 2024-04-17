@@ -42,16 +42,29 @@ const dateChangeHandler = (event) => {
     }
   })
 };
-
+const formSubmitHandeler=(event)=>{
+  event.preventDefault();
+  const formData={
+    title:userInput.enterdTitle,
+    amount:userInput.enterdAmt,
+    date:new Date(userInput.enterdDate),
+  }
+  console.log(formData)
+  setUserInput({
+  enterdTitle:'',
+  enterdAmt:'',
+  enterdDate:'',
+  })
+}
 return (
-  <form>
+  <form onSubmit={formSubmitHandeler}>
     <div className="new-expense__controls">
       <div className="new-expense__control">
         <label htmlFor="title">Title</label>
         <input 
           type="text" 
           id="title" 
-          // value={enteredTitle}
+          value={userInput.enterdTitle}
           onChange={titleChangeHandler} 
         />
       </div>
@@ -60,7 +73,7 @@ return (
         <input 
           type="number" 
           id="amount" 
-          // value={enteredAmount}
+          value={userInput.enterdAmt}
           onChange={amountChangeHandler} 
         />
       </div>
@@ -71,7 +84,7 @@ return (
           id="date" 
           min="2023-01-01" 
           max="2024-12-31" 
-          // value={enteredDate}
+          value={userInput.enterdDate}
           onChange={dateChangeHandler} 
         />
       </div>
