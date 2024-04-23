@@ -1,0 +1,6 @@
+.ul li{
+    text-align: center;
+    font-size:large;
+    font-family: 'Times New Roman', Times, serif;
+    list-style: decimal;
+}

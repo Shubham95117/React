@@ -1,0 +1,9 @@
+.card{
+   background-color:cornflowerblue;
+   border-radius: 50px;
+   width: 60%;
+   margin-left: 20%;
+   margin-right: 20%;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+   z-index: 1;
+}
