@@ -6,7 +6,9 @@ import './LogIn.css';
 const emailReducer = (state, action) => {
     switch (action.type) {
         case 'SET_EMAIL':
-            return { value: action.value, valid: action.value.includes('@') };
+            return { value: action.value, valid: action.value.includes('@'),touched:true};
+        case 'RESET_TOUCHED':
+        return { ...state, touched: false };
         default:
             return state;
     }
@@ -15,13 +17,15 @@ const emailReducer = (state, action) => {
 const passwordReducer = (state, action) => {
     switch (action.type) {
         case 'SET_PASSWORD':
-            return { value: action.value, valid: action.value.length >= 6 };
+            return { value: action.value, valid: action.value.length >= 6,touched:true };
+        case 'RESET_TOUCHED':
+        return { ...state, touched: false };
         default:
             return state;
     }
 };
 
-const LogIn = (props) => {
+const Login = (props) => {
     const [emailState, dispatchEmail] = useReducer(emailReducer, { value: '', valid: false });
     const [passwordState, dispatchPassword] = useReducer(passwordReducer, { value: '', valid: false });
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,8 +53,8 @@ const LogIn = (props) => {
         // Store login state in localStorage
         localStorage.setItem('isLoggedIn', 'true');
         props.setIsLoggedIn(true);
-        // setEmail('');
-        // setPassword('');
+        dispatchEmail({ type: 'SET_EMAIL', value:''})
+        dispatchPassword({ type: 'SET_PASSWORD', value:'' })
     };
 
     const logoutHandler = () => {
@@ -59,6 +63,8 @@ const LogIn = (props) => {
         // Update isLoggedIn state to false
         setIsLoggedIn(false);
         props.setIsLoggedIn(false);
+        dispatchEmail({ type: 'RESET_TOUCHED' });
+        dispatchPassword({ type: 'RESET_TOUCHED' });
     };
     
     return (
@@ -78,6 +84,8 @@ const LogIn = (props) => {
                             value={emailState.value}
                             onChange={(e) => dispatchEmail({ type: 'SET_EMAIL', value: e.target.value })}
                         />
+                       {emailState.touched && !emailState.valid && <p style={{ color: 'red' }}>Invalid email format</p>}
+
                         <label htmlFor='password'>Password:</label>
                         <input
                             type='password'
@@ -85,6 +93,7 @@ const LogIn = (props) => {
                             value={passwordState.value}
                             onChange={(e) => dispatchPassword({ type: 'SET_PASSWORD', value: e.target.value })}
                         />
+                       {passwordState.touched && !passwordState.valid && <p style={{ color: 'red' }}>Password must be at least 6 characters long</p>}
                         <Button type='button' onClick={loginHandler}>
                             Log In
                         </Button>
@@ -97,4 +106,4 @@ const LogIn = (props) => {
     );
 };
 
-export default LogIn;
+export default Login;
