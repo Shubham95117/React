@@ -4,6 +4,7 @@ import './AddUsers.css';
 import Button from '../UI/Button';
 import ErrorModal from '../UI/ErrorModal';
 import AuthContext from '../../Context/AuthContext';
+import Input from './Input';
 
 const AddUsers = (props) => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -49,15 +50,7 @@ const AddUsers = (props) => {
         <>
           {error && <ErrorModal title={error.title} message={error.message} onClose={() => setError(null)} />}
           <Card>
-            <form onSubmit={formSubmitHandeler} className='form'>
-              <label htmlFor='username'>Username</label>
-              <input type='text' id='username' value={enteredUsername} onChange={(event) => setEnteredUserName(event.target.value)} ref={nameRef} />
-              <label htmlFor='age'>Age</label>
-              <input type='number' id='age' value={enteredAge} onChange={(event) => setEnteredAge(event.target.value)} />
-              <label htmlFor='clgName'>College Name:</label>
-              <input type='text' id='clgName' value={clgName} onChange={(event) => setClgName(event.target.value)} />
-              <Button type='submit'>Add User</Button>
-            </form>
+          <Input formSubmitHandeler={formSubmitHandeler} enteredAge={enteredAge} setEnteredAge={setEnteredAge} enteredUsername={enteredUsername} setEnteredUserName={setEnteredUserName} clgName={clgName} setClgName={setClgName} labelName={'Username'}/>
           </Card>
         </>
       )}
