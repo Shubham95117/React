@@ -15,18 +15,12 @@ const addUserHandeler=(formData)=>{
   console.log(userData)
 }
   return (
-    <div> 
       <AuthContext.Provider value={{isLoggedIn:isLoggedIn}}>
       <Login setIsLoggedIn={setIsLoggedIn} />
-            {isLoggedIn && (
-                <div>
-                    <AddUsers onAddUser={addUserHandeler} />
-                    <UserList userData={userData} />
-                </div>
-            )}
+          <AddUsers onAddUser={addUserHandeler} />
+          <UserList userData={userData} />
             <Home/>
             </AuthContext.Provider>
-    </div>
   );
 }
 
