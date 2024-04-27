@@ -2,6 +2,8 @@ import { useState } from 'react';
 import AddUsers from './components/Users/AddUsers'
 import UserList from './components/Users/UserList';
 import Login from './pages/Login';
+import AuthContext from './Context/AuthContext';
+import Home from './pages/Home';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const[userData,setUserData]=useState([]);
@@ -14,6 +16,7 @@ const addUserHandeler=(formData)=>{
 }
   return (
     <div> 
+      <AuthContext.Provider value={{isLoggedIn:isLoggedIn}}>
       <Login setIsLoggedIn={setIsLoggedIn} />
             {isLoggedIn && (
                 <div>
@@ -21,6 +24,8 @@ const addUserHandeler=(formData)=>{
                     <UserList userData={userData} />
                 </div>
             )}
+            <Home/>
+            </AuthContext.Provider>
     </div>
   );
 }
