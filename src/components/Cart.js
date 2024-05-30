@@ -13,7 +13,14 @@ const Cart = () => {
     };
     return (
       <div>
-        <div style={{ display: "flex", justifyContent: "center", gap: "5px" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "10px",
+            marginTop: "5px",
+          }}
+        >
           <span style={{ fontSize: "bold" }}>{item.medicineName}</span>
           <span>x{item.qty}</span>
           {/* <button
@@ -40,10 +47,18 @@ const Cart = () => {
       <button onClick={() => setToggle(!toggle)}>cart</button>
       {toggle && (
         <div>
-          {items}
-          <div>
-            <h3>Total Amount:{cartCtx.totalAmt}</h3>
-          </div>
+          {items.length > 0 ? (
+            <div>
+              {items}
+              <div>
+                <h3>Total Amount: {cartCtx.totalAmt}</h3>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <h3>No items in the cart.</h3>
+            </div>
+          )}
         </div>
       )}
     </div>
