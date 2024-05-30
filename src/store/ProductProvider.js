@@ -1,33 +1,34 @@
 import React, { useState } from "react";
 import ProductContext from "./products_context";
+
 const ProductProvider = (props) => {
   const [products, setProducts] = useState([]);
-  // const reduceHandler=(item)=>{
-  //   const updatedProduct=products.filter((product)=>{
-  //     item.qty=
-  //   })
-  // }
+
+  const reduceProductQtyHandler = (id) => {
+    setProducts((prevProducts) => {
+      const updatedItems = prevProducts.map((item) => {
+        if (item.id === id && item.qty > 0) {
+          return { ...item, qty: item.qty - 1 };
+        }
+        return item;
+      });
+      return updatedItems;
+    });
+  };
+
   const addProductsHandler = (newProduct) => {
     setProducts((prevProducts) => {
       const existingProductIndex = prevProducts.findIndex(
-        (product) => product.medicineName === newProduct.medicineName
+        (product) =>
+          product.medicineName.trim() === newProduct.medicineName.trim()
       );
 
       if (existingProductIndex !== -1) {
         const updatedProducts = [...prevProducts];
-        updatedProducts[existingProductIndex].qty += parseInt(
-          newProduct.qty,
-          10
-        );
+        updatedProducts[existingProductIndex].qty += newProduct.qty;
         return updatedProducts;
       } else {
-        return [
-          ...prevProducts,
-          {
-            ...newProduct,
-            qty: parseInt(newProduct.qty, 10), // Ensure qty is stored as integer
-          },
-        ];
+        return [...prevProducts, newProduct];
       }
     });
   };
@@ -42,7 +43,7 @@ const ProductProvider = (props) => {
     products: products,
     addProduct: addProductsHandler,
     removeProduct: removeProductHandler,
-    // reduceProductQty:reduceHandler;
+    reduceProductQty: reduceProductQtyHandler,
   };
 
   return (

@@ -22,6 +22,8 @@ const AddProducts = () => {
       productCtx.addProduct({
         id: Date.now(),
         ...formData,
+        price: parseInt(formData.price),
+        qty: parseInt(formData.qty),
       });
     }
 
@@ -41,7 +43,8 @@ const AddProducts = () => {
       style={{
         display: "flex",
         justifyContent: "center",
-        marginRight: "300px",
+        marginRight: "350px",
+        marginTop: "50px",
         // marginTop: "200px",
       }}
     >

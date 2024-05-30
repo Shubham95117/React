@@ -1,55 +1,72 @@
 import React, { useState } from "react";
-import CartContext from "./../store/cart_context";
-
+import CartContext from "./cart-context";
 const CartProvider = (props) => {
   const [cartItems, setCartItems] = useState([]);
-  const [totalQuantity, setTotalQuantity] = useState(0);
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalAmt, setTotalAmt] = useState(0);
 
-  const addItemToCartHandler = (newItem) => {
+  // addItem to cart
+  const addCartItemsHandler = (newItems) => {
+    // setCartItems((prevItems) => [...prevItems, newItems]);
     setCartItems((prevItems) => {
-      const existingItemIndex = prevItems.findIndex(
-        (item) => item.id === newItem.id
-      );
-
+      const existingItemIndex = prevItems.findIndex((product) => {
+        return product.medicineName === newItems.medicineName;
+      });
       if (existingItemIndex !== -1) {
-        const updatedItems = [...prevItems];
-        updatedItems[existingItemIndex].quantity += newItem.quantity;
-        return updatedItems;
+        const updatedProducts = [...prevItems];
+        updatedProducts[existingItemIndex].qty += newItems.qty;
+        setTotalAmt(
+          updatedProducts.reduce(
+            (total, item) => total + item.price * item.qty,
+            0
+          )
+        );
+        return updatedProducts;
       } else {
-        return [...prevItems, newItem];
+        const updatedProducts = [...prevItems, newItems];
+        setTotalAmt(
+          updatedProducts.reduce(
+            (total, item) => total + item.price * item.qty,
+            0
+          )
+        );
+        return updatedProducts;
       }
     });
-
-    setTotalQuantity((prevQuantity) => prevQuantity + newItem.quantity);
-    setTotalAmount(
-      (prevAmount) => prevAmount + newItem.price * newItem.quantity
-    );
   };
 
-  const removeItemFromCartHandler = (id) => {
+  //remove
+  const removeCartItemHandler = (id) => {
+    const updatedProducts = cartItems.filter((item) => {
+      return item.id !== id;
+    });
+    setCartItems(updatedProducts);
+    setTotalAmt(
+      updatedProducts.reduce((total, item) => total + item.price * item.qty, 0)
+    );
+  };
+  //reduce cart qty
+  const reduceCartHandler = (id) => {
     setCartItems((prevItems) => {
-      const itemToRemove = prevItems.find((item) => item.id === id);
-      if (!itemToRemove) return prevItems;
+      const existingItemIndex = prevItems.findIndex((item) => item.id === id);
+      if (existingItemIndex === -1) return prevItems;
 
-      const updatedItems = prevItems.filter((item) => item.id !== id);
-      setTotalQuantity((prevQuantity) => prevQuantity - itemToRemove.quantity);
-      setTotalAmount(
-        (prevAmount) => prevAmount - itemToRemove.price * itemToRemove.quantity
-      );
-
+      const updatedItems = [...prevItems];
+      if (updatedItems[existingItemIndex].qty > 1) {
+        updatedItems[existingItemIndex].qty -= 1;
+      } else {
+        updatedItems.splice(existingItemIndex, 1); // Remove the item if quantity is 0
+      }
       return updatedItems;
     });
   };
-
+  // obj
   const cartContext = {
     cartItems: cartItems,
-    totalQuantity: totalQuantity,
-    totalAmount: totalAmount,
-    addItemToCart: addItemToCartHandler,
-    removeItemFromCart: removeItemFromCartHandler,
+    addCart: addCartItemsHandler,
+    removeCart: removeCartItemHandler,
+    reduceCart: reduceCartHandler,
+    totalAmt: totalAmt,
   };
-
   return (
     <CartContext.Provider value={cartContext}>
       {props.children}
