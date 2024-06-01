@@ -1,0 +1,87 @@
+/* AddProducts.css */
+.add-products-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -20px;
+    /* margin-left: 100px; */
+    position: relative;
+    z-index: 10;
+    margin-left: -5%;
+    /* Ensure the component is above other elements */
+}
+
+.add-products-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    /* height: 200px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.add-products-card img {
+    max-width: 100px;
+    height: auto;
+    position: absolute;
+    top: -50px;
+    /* Adjust this value to position the logo */
+    border-radius: 50%;
+    border: 5px solid white;
+    /* Optional: adds a white border around the logo */
+    background-color: white;
+    /* Ensures the logo has a white background */
+}
+
+.add-products-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-top: 60px;
+    /* Space for the logo */
+}
+
+.add-products-form input {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-products-form input[name="price"],
+.add-products-form input[name="qty"] {
+    width: calc(50% - 10px);
+    /* Adjust width to be half minus the gap */
+}
+
+.add-products-form .small-inputs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-products-form button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px;
+    /* width: 100px;
+    height: 40px; */
+    font-size: medium;
+    /* margin-left: 3px;
+    font-size: medium; */
+}
+
+.add-products-form button:hover {
+    background-color: #0056b3;
+}

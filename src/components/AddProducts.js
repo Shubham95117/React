@@ -1,5 +1,8 @@
 import React, { useState, useContext } from "react";
 import ProductContext from "../store/products_context";
+import "./AddProducts.css";
+import logo from "../assets/logo.jpg";
+
 const AddProducts = () => {
   const productCtx = useContext(ProductContext);
   const inputData = {
@@ -9,6 +12,7 @@ const AddProducts = () => {
     qty: "",
   };
   const [formData, setFormData] = useState(inputData);
+
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(formData);
@@ -26,7 +30,6 @@ const AddProducts = () => {
         qty: parseInt(formData.qty),
       });
     }
-
     setFormData(inputData);
   };
 
@@ -39,46 +42,43 @@ const AddProducts = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        marginRight: "350px",
-        marginTop: "50px",
-        // marginTop: "200px",
-      }}
-    >
-      <form onSubmit={submitHandler}>
-        <input
-          type="text"
-          name="medicineName"
-          placeholder="Medicine Name"
-          value={formData.medicineName}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="description"
-          placeholder="Description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="price"
-          placeholder="Price"
-          value={formData.price}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="qty"
-          placeholder="Qty"
-          value={formData.qty}
-          onChange={handleChange}
-        />
-        <button type="submit">Add Products</button>
-      </form>
+    <div className="add-products-container">
+      <div className="add-products-card">
+        <img src={logo} alt="logo" />
+        <form className="add-products-form" onSubmit={submitHandler}>
+          <input
+            type="text"
+            name="medicineName"
+            placeholder="Medicine Name"
+            value={formData.medicineName}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="description"
+            placeholder="Description"
+            value={formData.description}
+            onChange={handleChange}
+          />
+          <div className="small-inputs">
+            <input
+              type="text"
+              name="price"
+              placeholder="Price"
+              value={formData.price}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="qty"
+              placeholder="Qty"
+              value={formData.qty}
+              onChange={handleChange}
+            />
+          </div>
+          <button type="submit">Add Products</button>
+        </form>
+      </div>
     </div>
   );
 };

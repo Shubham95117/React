@@ -4,14 +4,19 @@ import ProductContext from "./products_context";
 const ProductProvider = (props) => {
   const [products, setProducts] = useState([]);
 
-  const reduceProductQtyHandler = (id) => {
-    setProducts((prevProducts) => {
-      const updatedItems = prevProducts.map((item) => {
-        if (item.id === id && item.qty > 0) {
-          return { ...item, qty: item.qty - 1 };
+  const reduceProductQtyHandler = (id, qty) => {
+    setProducts((prevItems) => {
+      const existingItemIndex = prevItems.findIndex((item) => item.id === id);
+      if (existingItemIndex === -1) return prevItems;
+
+      const updatedItems = [...prevItems];
+      if (updatedItems[existingItemIndex].qty > 0) {
+        if (qty === 1) {
+          updatedItems[existingItemIndex].qty -= 1;
+        } else {
+          updatedItems[existingItemIndex].qty -= qty;
         }
-        return item;
-      });
+      }
       return updatedItems;
     });
   };

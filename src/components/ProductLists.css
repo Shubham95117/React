@@ -1,4 +1,68 @@
-.disable {
+/* ProductLists.css */
+.product-list-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    width: 716px;
+    /* Set the desired width */
+}
+
+.product-list {
+    border: 2px solid black;
+    width: 100%;
+    /* Adjusted to fit the container width */
+    max-width: 1000px;
+    /* Maximum width to maintain consistency */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.product-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.product-list thead {
+    background-color: #f4f4f4;
+}
+
+.product-list th,
+.product-list td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-list th {
+    font-weight: bold;
+}
+
+.product-list tr:hover {
+    background-color: #f1f1f1;
+}
+
+.product-list button {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+    margin-left: 15px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.product-list button:hover {
+    background-color: #0056b3;
+}
+
+.product-list .disable {
     color: red;
     cursor: not-allowed;
+    background-color: #ccc;
 }

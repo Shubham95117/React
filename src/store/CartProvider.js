@@ -45,17 +45,20 @@ const CartProvider = (props) => {
     );
   };
   //reduce cart qty
-  const reduceCartHandler = (id) => {
+  const reduceCartHandler = (id, qty) => {
     setCartItems((prevItems) => {
       const existingItemIndex = prevItems.findIndex((item) => item.id === id);
       if (existingItemIndex === -1) return prevItems;
 
       const updatedItems = [...prevItems];
-      if (updatedItems[existingItemIndex].qty > 1) {
+      if (updatedItems[existingItemIndex].qty > 0) {
         updatedItems[existingItemIndex].qty -= 1;
       } else {
         updatedItems.splice(existingItemIndex, 1); // Remove the item if quantity is 0
       }
+      setTotalAmt(
+        updatedItems.reduce((total, item) => total + item.price * item.qty, 0)
+      );
       return updatedItems;
     });
   };
