@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import StudentForm from "./components/StudentForm";
+import StudentList from "./components/StudentList";
 
 function App() {
+  const [modalShow, setModalShow] = useState(false);
+  const [editingStudent, setEditingStudent] = useState(null);
+  const showModalHandler = () => {
+    setModalShow(true);
+  };
+  const hideModalHandler = () => {
+    setModalShow(false);
+  };
+
+  const editStudentHandler = (student) => {
+    setEditingStudent(student);
+    showModalHandler();
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="background">
+      <Header onShowModal={showModalHandler} />
+      {modalShow && (
+        <StudentForm onClose={hideModalHandler} student={editingStudent} />
+      )}
+      <StudentList onEditStudent={editStudentHandler} />
     </div>
   );
 }
